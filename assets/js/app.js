@@ -3,7 +3,14 @@ function monthsWorked(startDate) {
   var startMonth = parseInt(arr[0]);
   var startYear = parseInt(arr[2]);
   var today = new Date();
-  return ((today.getFullYear() - startYear) * 12) + Math.abs(((today.getMonth() + 1) - startMonth));
+  if(today.getFullYear()>startYear){
+    return ((today.getFullYear() - startYear) * 12) + (today.getMonth() + 1) - startMonth);
+  }else if(today.getFullYear()===startYear && ((today.getMonth() + 1)>=startMonth)){
+    return ((today.getFullYear() - startYear) * 12) + (today.getMonth() + 1) - startMonth);
+  }else{
+      return 0;
+  }
+
 }
 
 function Application() {
