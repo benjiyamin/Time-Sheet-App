@@ -1,3 +1,25 @@
+.background {
+    background: gray;
+}
 .tableDefault {
     text-align: center;
+}
+
+.headingThree {
+    color: yellow;
+}
+
+.form {
+    color: white;
+    font-size: 18px;
+}
+
+#addEmployee{
+background: white;
+color: grey;
+}
+
+input:hover{
+    background-color: black !important;
+    color: yellow !important;
 }
