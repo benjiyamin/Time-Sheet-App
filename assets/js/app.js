@@ -29,8 +29,7 @@ function Application() {
   }
 
   this.employeeToTable = function (empData) {
-    var today = new Date();
-    let months = Math.max(moment(today).diff(empData.startDate, "months"), 0)
+    let months = Math.max(moment().diff(empData.startDate, "months"), 0)
     var tabr = $("<tr>"),
       tabd1 = $("<td>"),
       tabd2 = $("<td>"),
