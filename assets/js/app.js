@@ -51,6 +51,11 @@ function Application() {
   $('#addEmployee').on('click', function (event) {
     event.preventDefault()
     self.storeData()
+    $('#nameInput').val("")
+    $('#roleInput').val("")
+    $('#startDateInput').val("")
+    $('#rateInput').val("")
+
   })
 
   database.ref().once("value").then(function (snapshot) {
