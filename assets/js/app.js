@@ -1,11 +1,3 @@
-function monthsWorked(startDate) {
-  var arr = startDate.split("/");
-  var startMonth = parseInt(arr[0]);
-  var startYear = parseInt(arr[2]);
-  var today = new Date();
-  return Math.max(((today.getFullYear() - startYear) * 12) + (today.getMonth() + 1) - startMonth, 0);
-}
-
 function Application() {
   let self = this
 
@@ -37,6 +29,8 @@ function Application() {
   }
 
   this.employeeToTable = function (empData) {
+    var today = new Date();
+    let months = Math.max(moment(today).diff(empData.startDate, "months"), 0)
     var tabr = $("<tr>"),
       tabd1 = $("<td>"),
       tabd2 = $("<td>"),
@@ -47,9 +41,9 @@ function Application() {
     tabd1.text(empData.name);
     tabd2.text(empData.role);
     tabd3.text(empData.startDate);
-    tabd4.text(monthsWorked(empData.startDate));
+    tabd4.text(months);
     tabd5.text(empData.rate);
-    tabd6.text(monthsWorked(empData.startDate) * parseInt(empData.rate));
+    tabd6.text(months * parseInt(empData.rate));
     tabr.append(tabd1).append(tabd2).append(tabd3).append(tabd4).append(tabd5).append(tabd6);
     $(".table").append(tabr);
   };
