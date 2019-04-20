@@ -28,6 +28,19 @@ function Application() {
     })
   }
 
+  this.addEmployeeData = function (empData) {
+    console.log(empData)
+    let thName = $('<th>')
+      .text(empData.name)
+    let tdRole = $('<td>')
+      .text(empData.role)
+    let tdStartDate = $('<td>')
+      .text(empData.startDate)
+    let tRow = $('<tr>')
+      .append(thName, tdRole, tdStartDate)
+    $('#tableData').append(tRow)
+  }
+
   this.employeesToTable = function (childSnap) {
 
     // Clear the table
@@ -41,8 +54,17 @@ function Application() {
     self.storeData()
   })
 
+  database.ref().once("value").then(function (snapshot) {
+    $('#tableData').empty()
+    snapshot.forEach(function (childSnapshot) {
+      var childData = childSnapshot.val();
+      self.addEmployeeData(childData)
+      //console.log(childData)
+    });
+  })
+
   // This function allows you to update your page in real-time when the firebase database changes.
-  database.ref().on('child_added', function (snapshot) {
+  database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function (snapshot) {
 
     let childSnap = snapshot.val()
     self.employeesToTable(childSnap)
