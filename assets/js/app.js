@@ -36,26 +36,6 @@ function Application() {
     })
   }
 
-  this.addEmployeeData = function (empData) {
-    //console.log(empData)
-    let months = monthsWorked(empData.startDate)
-    let thName = $('<th>')
-      .text(empData.name)
-    let tdRole = $('<td>')
-      .text(empData.role)
-    let tdStartDate = $('<td>')
-      .text(empData.startDate)
-    let tdMonthsWorked = $('<td>')
-      .text(months)
-    let tdRate = $('<td>')
-      .text(empData.rate)
-    let tdTotalBilled = $('<td>')
-      .text(months * empData.rate)
-    let tRow = $('<tr>')
-      .append(thName, tdRole, tdStartDate, tdMonthsWorked, tdRate, tdTotalBilled)
-    $('#tableData').append(tRow)
-  }
-
   this.employeeToTable = function (snapshot) {
     var tabr = $("<tr>"),
       tabd1 = $("<td>"),
@@ -83,8 +63,7 @@ function Application() {
     $('#tableData').empty()
     snapshot.forEach(function (childSnapshot) {
       var childData = childSnapshot.val();
-      self.addEmployeeData(childData)
-      //console.log(childData)
+      self.employeeToTable(childData)
     });
   })
 
