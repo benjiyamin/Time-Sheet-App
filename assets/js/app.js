@@ -3,9 +3,6 @@ function monthsWorked(startDate) {
   var startMonth = parseInt(arr[0]);
   var startYear = parseInt(arr[2]);
   var today = new Date();
-  if((today.getFullYear() - startYear)<0 || (((today.getFullYear() - startYear)==0) && ((today.getMonth() + 1) - startMonth)<0)){
-      alert("initial acceptable date!");
-  }
   return Math.max(((today.getFullYear() - startYear) * 12) + (today.getMonth() + 1) - startMonth, 0);
 }
 
