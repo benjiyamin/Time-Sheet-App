@@ -28,25 +28,25 @@ function Application() {
     })
   }
 
-  this.employeesToTable = function (snapsot) {
+  this.employeesToTable = function (snapVal) {
 
     // Clear the table
     // Get from firebase
-
-    dbEmployees.forEach(data => {
-
-    });
+    console.log(snapVal)
 
   }
 
-  $('#addButton').on('click', function () {
+  $('#addEmployee').on('click', function (event) {
+
+    event.preventDefault()
     self.storeData()
   })
 
   // This function allows you to update your page in real-time when the firebase database changes.
   database.ref().on('child_added', function (snapshot) {
 
-    self.employeesToTable(snapshot)
+    let snapVal = snapshot.val()
+    self.employeesToTable(snapVal)
 
     // If any errors are experienced, log them to console.
   }, function (errorObject) {
