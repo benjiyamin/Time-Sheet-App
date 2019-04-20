@@ -28,16 +28,15 @@ function Application() {
     })
   }
 
-  this.employeesToTable = function (snapVal) {
+  this.employeesToTable = function (childSnap) {
 
     // Clear the table
     // Get from firebase
-    console.log(snapVal)
+    console.log(childSnap)
 
   }
 
   $('#addEmployee').on('click', function (event) {
-
     event.preventDefault()
     self.storeData()
   })
@@ -45,8 +44,8 @@ function Application() {
   // This function allows you to update your page in real-time when the firebase database changes.
   database.ref().on('child_added', function (snapshot) {
 
-    let snapVal = snapshot.val()
-    self.employeesToTable(snapVal)
+    let childSnap = snapshot.val()
+    self.employeesToTable(childSnap)
 
     // If any errors are experienced, log them to console.
   }, function (errorObject) {
