@@ -1,3 +1,11 @@
+function monthsWorked(startDate) {
+  var arr = startDate.split("/");
+  var startMonth = parseInt(arr[0]);
+  var startYear = parseInt(arr[2]);
+  var today = new Date();
+  return ((today.getFullYear() - startYear) * 12) + (today.getMonth() + 1 - startMonth);
+}
+
 function Application() {
   let self = this
 
@@ -11,14 +19,6 @@ function Application() {
   };
   firebase.initializeApp(config);
   let database = firebase.database()
-
-  function monthsWorked(startDate){
-    var arr = startDate.split("/");
-    var startMonth=parseInt(arr[0]);
-    var startYear=parseInt(arr[2]);
-    var today = new Date();
-    return ((today.getFullYear()-startYear)*12)+(today.getMonth()+1-startMonth);
-  }
 
   this.storeData = function () {
     let name = $('#nameInput').val().trim()
@@ -37,32 +37,39 @@ function Application() {
   }
 
   this.addEmployeeData = function (empData) {
-    console.log(empData)
+    //console.log(empData)
+    let months = monthsWorked(empData.startDate)
     let thName = $('<th>')
       .text(empData.name)
     let tdRole = $('<td>')
       .text(empData.role)
     let tdStartDate = $('<td>')
       .text(empData.startDate)
+    let tdMonthsWorked = $('<td>')
+      .text(months)
+    let tdRate = $('<td>')
+      .text(empData.rate)
+    let tdTotalBilled = $('<td>')
+      .text(months * empData.rate)
     let tRow = $('<tr>')
-      .append(thName, tdRole, tdStartDate)
+      .append(thName, tdRole, tdStartDate, tdMonthsWorked, tdRate, tdTotalBilled)
     $('#tableData').append(tRow)
   }
 
-  this.employeesToTable = function (snapsot) {
-    var tabr=$("<tr>"),
-        tabd1=$("<td>"),
-        tabd2=$("<td>"),
-        tabd3=$("<td>"),
-        tabd4=$("<td>"),
-        tabd5=$("<td>"),
-        tabd6=$("<td>");
+  this.employeeToTable = function (snapshot) {
+    var tabr = $("<tr>"),
+      tabd1 = $("<td>"),
+      tabd2 = $("<td>"),
+      tabd3 = $("<td>"),
+      tabd4 = $("<td>"),
+      tabd5 = $("<td>"),
+      tabd6 = $("<td>");
     tabd1.text(snapshot.name);
     tabd2.text(snapshot.role);
     tabd3.text(snapshot.startDate);
     tabd4.text(monthsWorked(snapshot.startDate));
     tabd5.text(snapshot.rate);
-    tabd6.text(monthsWorked(snapshot.startDate)*parseint(snapshot.rate));
+    tabd6.text(monthsWorked(snapshot.startDate) * parseInt(snapshot.rate));
     tabr.append(tabd1).append(tabd2).append(tabd3).append(tabd4).append(tabd5).append(tabd6);
     $(".table").append(tabr);
   };
@@ -85,7 +92,7 @@ function Application() {
   database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function (snapshot) {
 
     let childSnap = snapshot.val()
-    self.employeesToTable(childSnap)
+    self.employeeToTable(childSnap)
 
     // If any errors are experienced, log them to console.
   }, function (errorObject) {
