@@ -43,7 +43,7 @@ function Application() {
     tabd4.text(months);
     tabd5.text(empData.rate);
     tabd6.text(months * parseInt(empData.rate));
-    tabr.append(tabd1).append(tabd2).append(tabd3).append(tabd4).append(tabd5).append(tabd6);
+    tabr.append(tabd1, tabd2, tabd3, tabd4, tabd5, tabd6);
     $(".table").append(tabr);
   };
 
