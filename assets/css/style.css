@@ -1,3 +1,37 @@
+.pageHeading{
+    text-align: center !important;
+    color: white;
+    font-size: 28px;
+}
+
+.navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+.background {
+    background: gray;
+}
 .tableDefault {
     text-align: center;
+}
+
+.headingThree {
+    color: yellow;
+}
+
+.form {
+    color: white;
+    font-size: 18px;
+}
+
+#addEmployee{
+background: white;
+color: grey;
+}
+
+input:hover{
+    background-color: black !important;
+    color: yellow !important;
 }
