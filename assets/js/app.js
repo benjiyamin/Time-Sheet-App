@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function Application() {
   let self = this
 
@@ -18,7 +17,7 @@ function Application() {
     var startMonth=parseInt(arr[0]);
     var startYear=parseInt(arr[2]);
     var today = new Date();
-    return ((today.getFullYear()-startYear)*12)+(today.getMonth()+1-startMonth);
+    return ((today.getFullYear()-startYear)*12)+Math.abs(((today.getMonth()+1)-startMonth));
   }
 
   this.storeData = function () {
@@ -32,7 +31,6 @@ function Application() {
       role: role,
       startDate: startDate,
       rate: rate,
-
       dateAdded: firebase.database.ServerValue.TIMESTAMP
     })
   }
@@ -55,17 +53,6 @@ function Application() {
     $(".table").append(tabr);
   };
 
-        
-
-
-    // Clear the table
-    // Get from firebase
-
-    dbEmployees.forEach(data => {
-
-    });
-
-  }
 
   $('#addButton').on('click', function () {
     self.storeData()
@@ -81,37 +68,6 @@ function Application() {
     console.log("The read failed: " + errorObject.code);
   });
 
-}
-=======
-function Application() {
-  let self = this
-
-  let config = {
-    apiKey: "AIzaSyDX29jSmkMwtwc0n9-8gOIY-IPXtrAQbkM",
-    authDomain: "my-project-94dab.firebaseapp.com",
-    databaseURL: "https://my-project-94dab.firebaseio.com",
-    projectId: "my-project-94dab",
-    storageBucket: "my-project-94dab.appspot.com",
-    messagingSenderId: "905981696191"
-  };
-  firebase.initializeApp(config);
-  let database = firebase.database()
-
-  this.storeData = function () {
-    let name = $('#nameInput').val().trim()
-    let role = $('#roleInput').val().trim()
-    let startDate = $('#startDateInput').val().trim()
-    let rate = $('#rateInput').val().trim()
-
-    // Store to firebase
-    database.ref().push({
-      name: name,
-      role: role,
-      startDate: startDate,
-      rate: rate,
-      dateAdded: firebase.database.ServerValue.TIMESTAMP
-    })
-  }
 
   this.employeesToTable = function (childSnap) {
 
@@ -138,4 +94,3 @@ function Application() {
   });
 
 }
->>>>>>> b5d8e82bfe222f14a62f8901cc2d2b6e4808291a
