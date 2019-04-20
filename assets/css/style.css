@@ -1,3 +1,15 @@
+.pageHeading{
+    text-align: center !important;
+    color: white;
+    font-size: 28px;
+}
+
+.navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
 .background {
     background: gray;
 }

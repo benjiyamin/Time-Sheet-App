@@ -12,6 +12,14 @@ function Application() {
   firebase.initializeApp(config);
   let database = firebase.database()
 
+  function monthsWorked(startDate){
+    var arr = startDate.split("/");
+    var startMonth=parseInt(arr[0]);
+    var startYear=parseInt(arr[2]);
+    var today = new Date();
+    return ((today.getFullYear()-startYear)*12)+(today.getMonth()+1-startMonth);
+  }
+
   this.storeData = function () {
     let name = $('#nameInput').val().trim()
     let role = $('#roleInput').val().trim()
@@ -41,13 +49,23 @@ function Application() {
     $('#tableData').append(tRow)
   }
 
-  this.employeesToTable = function (childSnap) {
-
-    // Clear the table
-    // Get from firebase
-    console.log(childSnap)
-
-  }
+  this.employeesToTable = function (snapsot) {
+    var tabr=$("<tr>"),
+        tabd1=$("<td>"),
+        tabd2=$("<td>"),
+        tabd3=$("<td>"),
+        tabd4=$("<td>"),
+        tabd5=$("<td>"),
+        tabd6=$("<td>");
+    tabd1.text(snapshot.name);
+    tabd2.text(snapshot.role);
+    tabd3.text(snapshot.startDate);
+    tabd4.text(monthsWorked(snapshot.startDate));
+    tabd5.text(snapshot.rate);
+    tabd6.text(monthsWorked(snapshot.startDate)*parseint(snapshot.rate));
+    tabr.append(tabd1).append(tabd2).append(tabd3).append(tabd4).append(tabd5).append(tabd6);
+    $(".table").append(tabr);
+  };
 
   $('#addEmployee').on('click', function (event) {
     event.preventDefault()
