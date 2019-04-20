@@ -10,7 +10,6 @@ function Application() {
     messagingSenderId: "905981696191"
   };
   firebase.initializeApp(config);
-
   let database = firebase.database()
 
   this.storeData = function () {
@@ -29,7 +28,7 @@ function Application() {
     })
   }
 
-  this.employeesToTable = function () {
+  this.employeesToTable = function (snapsot) {
 
     // Clear the table
     // Get from firebase
@@ -47,7 +46,7 @@ function Application() {
   // This function allows you to update your page in real-time when the firebase database changes.
   database.ref().on('child_added', function (snapshot) {
 
-    
+    self.employeesToTable(snapshot)
 
     // If any errors are experienced, log them to console.
   }, function (errorObject) {
