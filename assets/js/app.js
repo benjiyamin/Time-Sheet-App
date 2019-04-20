@@ -36,7 +36,7 @@ function Application() {
     })
   }
 
-  this.employeeToTable = function (snapshot) {
+  this.employeeToTable = function (empData) {
     var tabr = $("<tr>"),
       tabd1 = $("<td>"),
       tabd2 = $("<td>"),
@@ -44,12 +44,12 @@ function Application() {
       tabd4 = $("<td>"),
       tabd5 = $("<td>"),
       tabd6 = $("<td>");
-    tabd1.text(snapshot.name);
-    tabd2.text(snapshot.role);
-    tabd3.text(snapshot.startDate);
-    tabd4.text(monthsWorked(snapshot.startDate));
-    tabd5.text(snapshot.rate);
-    tabd6.text(monthsWorked(snapshot.startDate) * parseInt(snapshot.rate));
+    tabd1.text(empData.name);
+    tabd2.text(empData.role);
+    tabd3.text(empData.startDate);
+    tabd4.text(monthsWorked(empData.startDate));
+    tabd5.text(empData.rate);
+    tabd6.text(monthsWorked(empData.startDate) * parseInt(empData.rate));
     tabr.append(tabd1).append(tabd2).append(tabd3).append(tabd4).append(tabd5).append(tabd6);
     $(".table").append(tabr);
   };
@@ -70,8 +70,8 @@ function Application() {
   // This function allows you to update your page in real-time when the firebase database changes.
   database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function (snapshot) {
 
-    let childSnap = snapshot.val()
-    self.employeeToTable(childSnap)
+    let childData = snapshot.val()
+    self.employeeToTable(childData)
 
     // If any errors are experienced, log them to console.
   }, function (errorObject) {
